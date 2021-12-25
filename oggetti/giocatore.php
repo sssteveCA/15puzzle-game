@@ -28,6 +28,7 @@ class Giocatore{
     private $loggato; //booleano che controlla se l'utente è loggato
     private $registrato; //booleano che controlla se l'utente è registrato
     private $query; //ultima query SQL inviata
+    private $queries; //lista di query SQL inviate
     private $errno; //codice dell'errore rilevato
     private $error; //messaggio di errore
     public static $campi = array('id','email','username','codAut','cambioPwd');
@@ -41,7 +42,6 @@ class Giocatore{
     );
 
     public function __construct($dati){
-        $this->errno = 0;
         $this->connesso = false;
         $mysqlHost=isset($dati['mysqlHost'])? $dati['mysqlHost']:'localhost';
         $mysqlUser=isset($dati['mysqlUser'])? $dati['mysqlUser']:'root';
@@ -53,6 +53,16 @@ class Giocatore{
             throw new Exception("Connessione a MySql fallita: ".$this->h->connect_error);
         }
         $this->h->set_charset("utf8mb4");
+        $this->query = null;
+        $this->queries = array();
+        if(!$this->createDb($mysqlDb)){
+            throw new Exception("Errore durante il controllo del database");
+        }
+        if(!$this->createTable()){
+            throw new Exception("Errore durante il controllo della tabella");
+        }
+        $this->errno = 0;
+        $this->error = null;
         $this->connesso = true;
         $this->loggato = false;
         $this->email = isset($dati['email'])? $dati['email']:null;
@@ -207,6 +217,61 @@ class Giocatore{
         $this->cambioPwd = $data['cambioPwd'];
         $this->dataCambioPwd = $data['dataCambioPwd'];  
     }
+
+        //crea il database se non esiste
+        private function createDb($db){
+            $ok = false;
+            $this->query = <<<SQL
+CREATE DATABASE IF NOT EXISTS {$db};
+SQL;
+            $this->queries[] = $this->query;
+            $create = $this->h->query($this->query);
+            if($create !== false)
+                $ok = true;
+            return $ok;
+        }
+    
+        //crea la tabella se non esiste
+        private function createTable(){
+            $ok = false;
+            $this->query = <<<SQL
+SHOW TABLES LIKE '{$this->tabella}';
+SQL;
+            $this->queries[] = $this->query;
+            $show = $this->h->query($this->query);
+            if($show !== false){
+                if($show->num_rows == 0){
+                    $this->query = <<<SQL
+CREATE TABLE `{$this->tabella}` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(100) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `sequenza` varchar(100) DEFAULT NULL COMMENT 'ordine attuale dei numeri dentro la tessera',
+  `tempo` varchar(30) DEFAULT NULL,
+  `spostamenti` int(11) DEFAULT NULL,
+  `record` bigint(20) DEFAULT NULL COMMENT 'partita con il tempo più basso in secondi',
+  `codAut` varchar(100) DEFAULT NULL,
+  `cambioPwd` varchar(64) DEFAULT NULL,
+  `dataCambioPwd` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`),
+  UNIQUE KEY `email` (`email`),
+  UNIQUE KEY `codAut` (`codAut`),
+  UNIQUE KEY `cambioPwd` (`cambioPwd`),
+  UNIQUE KEY `dataCambioPwd` (`dataCambioPwd`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4
+SQL;
+                $this->queries[] = $this->query;
+                $create = $this->h->query($this->query);
+                if($create !== false)
+                    $ok = true;
+                }//if($show->num_rows == 0){
+                else
+                    $ok = true;
+            }//if($show !== false){        
+            return $ok;
+        }
 
     public function getId(){return $this->id;}
     public function getEmail(){return $this->email;}
