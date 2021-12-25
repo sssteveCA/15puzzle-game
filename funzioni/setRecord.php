@@ -22,9 +22,9 @@ if(isset($_SESSION['giocatore'],$_SESSION['logged']) && $_SESSION['giocatore'] !
         //$datiG['record'] = $record;
         try{
             $player = new Giocatore($datiG);
-            $errN = $giocatore->getErrno();
+            $errno = $giocatore->getErrno();
             //ottengo i dati anche se l'utente 'non si è loggato'
-            if($errN == 0 || $errN == GIOCATOREERR_INCORRECTLOGINDATA){
+            if($errno == 0 || $errno == GIOCATOREERR_INCORRECTLOGINDATA){
                 $agg = $player->setRecord($record);
                 if($agg){
                     $risposta['ok'] = '1';
@@ -32,12 +32,31 @@ if(isset($_SESSION['giocatore'],$_SESSION['logged']) && $_SESSION['giocatore'] !
                 }
                 else{
                     $risposta['error'] = '1';
-                    $risposta['msg'] = $player->getError();
+                    $errno = $player->getErrno();
+                    switch($errno){
+                        case GIOCATOREERR_DATANOTUPDATED:
+                        case GIOCATOREERR_QUERYERROR:
+                        case GIOCATOREERR_INVALIDDATAFORMAT:
+                            $risposta['msg'] = ERROR." {$errno}";
+                            break;
+                        default:
+                            $risposta['msg'] = UNKNOWN_ERROR;
+                            break;
+                    }
                 }
             }
             else{
                 $risposta['error'] = '1';
-                $risposta['msg'] = $player->getError();
+                $errno = $player->getErrno();
+                switch($errno){
+                    case GIOCATOREERR_DATANOTSET:
+                    case GIOCATOREERR_INVALIDFIELD:
+                        $risposta['msg'] = ERROR." {$errno}";
+                        break;
+                    default:
+                        $risposta['msg'] = UNKNOWN_ERROR;
+                        break;
+                }
             }
         }
         catch(Exception $e){
@@ -52,5 +71,5 @@ if(isset($_SESSION['giocatore'],$_SESSION['logged']) && $_SESSION['giocatore'] !
     }
 }
 
-if($ajax)echo json_encode($risposta);
+if($ajax)echo json_encode($risposta,JSON_UNESCAPED_UNICODE);
 ?>

@@ -44,6 +44,8 @@ if(isset($_SESSION['giocatore'],$_SESSION['logged']) && $_SESSION['giocatore'] !
             catch(Exception $e){
                 $risposta['error'] = '1';
                 $risposta['msg'] = $e->getMessage();
+                file_put_contents(LOGFILE,$risposta['msg'],FILE_APPEND);
+                $risposta['msg'] = UNKNOWN_ERROR;
             }
         }//if(preg_match(Giocatore::$regex['tempo'],$tempo) && is_numeric($spostamenti))  
         else{
@@ -53,13 +55,12 @@ if(isset($_SESSION['giocatore'],$_SESSION['logged']) && $_SESSION['giocatore'] !
     }//if(isset($_POST['sequenza'],$_POST['tempo'],$_POST['spostamenti'])))
     else{
         $risposta['error'] = '1';
-        //$risposta['msg'] = 'Errore durante il rilevamento dell\' ordine delle tessere';
-        $risposta['msg'] = UNKNOWN_ERROR;
+        $risposta['msg'] = 'Errore durante il rilevamento dell\' ordine delle tessere';
     }
 }//if(isset($_SESSION['giocatore'],$_SESSION['logged']) && $_SESSION['giocatore'] != '' && $_SESSION['logged'])
 else{
     $risposta['warning'] = '1';
     $risposta['msg'] = 'Il tuo account è stato disconnesso';
 }
-if($ajax)echo json_encode($risposta);
+if($ajax)echo json_encode($risposta,JSON_UNESCAPED_UNICODE);
 ?>
