@@ -51,7 +51,7 @@ function chiamaAjax(dati){
         method : 'post',
         data : dati,
         success : function(risposta, stato, xhr){
-            console.log(risposta);
+            //console.log(risposta);
             var risp = JSON.parse(risposta);
             message('dialog','Modifica profilo','auto','auto',risp.msg,'close');
             if(risp.hasOwnProperty('done')){

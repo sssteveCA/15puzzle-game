@@ -193,14 +193,9 @@ if(isset($_SESSION['giocatore'],$_SESSION['logged']) && $_SESSION['giocatore'] !
             ordineV = 0;
             //posizione del div dello spazio vuoto da 0 a 15
             ordineV += parseInt(vuotoY/spostamento)*4 + parseInt(vuotoX/spostamento);
-            //console.log(tesseraC);  
-            /*console.log("ordineT = "+ordineT);
-            console.log("ordineV = "+ordineV);*/
             /*variabili temporanee per fare lo scambio tra il div vuoto e la tessera selezionata */
             tTemp = sequenza[ordineT];
             vTemp = sequenza[ordineV];
-            /*console.log("tTemp "+tTemp);
-            console.log("vTemp "+vTemp);*/ 
             //se il div vuoto si trova adiacente a sinistra
             if((tX == (vuotoX + spostamento)) && tY == vuotoY){
                 tX -= spostamento;
@@ -271,15 +266,6 @@ if(isset($_SESSION['giocatore'],$_SESSION['logged']) && $_SESSION['giocatore'] !
                 top : vuotoY+'px',
                 left : vuotoX+'px'
             });
-            /*console.log("DOPO");
-            console.log("vuotoX = "+vuotoX);
-            console.log("vuotoY = "+vuotoY);
-            console.log("tXpre = "+tXpre);
-            console.log("tYpre = "+tYpre);
-            console.log("tX = "+tX);
-            console.log("tY = "+tY);
-            console.log("sequenza");
-            console.log(sequenza);*/
             //se le tessere sono ordinate in senso crescente
             sorted = isOrdinato(sequenza);
             if(sorted === true){

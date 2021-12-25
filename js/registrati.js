@@ -39,7 +39,7 @@ $(function(){
             method : 'post',
             data : dati,
             success : function(risposta, stato, xhr){
-                console.log(risposta);
+                //console.log(risposta);
                 var ris = JSON.parse(risposta);
                 message('dialog','Registrazione','auto','auto',ris.msg,'close');
                 if(ris.hasOwnProperty('done')){

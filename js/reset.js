@@ -13,7 +13,7 @@ $(function(){
             method : 'post',
             data : dati,
             success : function(risposta, stato, xhr){
-                console.log(risposta);
+                //console.log(risposta);
                 var risp = JSON.parse(risposta);
                 message('dialog','Recupero password','auto','400px',risp.msg,'close');
                 if(risp.hasOwnProperty('done')){

@@ -26,9 +26,9 @@ function setRecord(d,h,m,s){
         method : 'post',
         data : dati,
         success : function(risposta, stato, xhr){
-            console.log(risposta);
+            //console.log(risposta);
             var risp = JSON.parse(risposta);
-            console.log(risp);
+            //console.log(risp);
             if(risp.hasOwnProperty('msg')){
                 message('dialog','Aggiornamento record','auto','400px',risp.msg,'close');
                 //distruggo la finestra dopo averla chiusa

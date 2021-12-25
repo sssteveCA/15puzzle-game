@@ -37,10 +37,6 @@ $(function(){
         'margin-top' : '30px',
         'margin-bottom' : '100px'
     });
-    /*menu.css({
-        height : menuH+'px',
-        width : menuW+'px'
-    });*/
     $('.voci').css({
         height : voceH+'px',
         widht: voceW+'px',
@@ -60,7 +56,6 @@ $(function(){
         evidenzia(voce);
     });
     $('.voci').on('click',function(){
-        console.log(voce);
         //se l'elemento non esiste
         if(voce == 0){
             if(!$('#fAccedi').length){
