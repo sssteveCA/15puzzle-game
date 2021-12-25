@@ -191,7 +191,7 @@ if(isset($_SESSION['giocatore'],$_SESSION['logged']) && $_SESSION['giocatore'] !
             //posizione della tessera selezionata da 0 a 15
             ordineT += parseInt(tY/spostamento)*4 + parseInt(tX/spostamento);
             ordineV = 0;
-            //posizione deldiv dello spazio vuoto da 0 a 15
+            //posizione del div dello spazio vuoto da 0 a 15
             ordineV += parseInt(vuotoY/spostamento)*4 + parseInt(vuotoX/spostamento);
             //console.log(tesseraC);  
             /*console.log("ordineT = "+ordineT);
@@ -282,7 +282,6 @@ if(isset($_SESSION['giocatore'],$_SESSION['logged']) && $_SESSION['giocatore'] !
             console.log(sequenza);*/
             //se le tessere sono ordinate in senso crescente
             sorted = isOrdinato(sequenza);
-            //if(spostamenti == 4)sorted = true;
             if(sorted === true){
                 //il conteggio del tempo e degli spostamenti vengono bloccati
                 clearInterval(tId);
@@ -422,7 +421,7 @@ SPOSTAMENTI: `+spostamentiBis+``;
                                     $('.bSlot').on('click',function(e){
                                         $('#saves').dialog('close');
                                         var inputId = $(this).attr('id');
-                                        console.log("inputId"+inputId);
+                                        //console.log("inputId"+inputId);
                                         var slot;
                                         //Verifico quale slot è stato scelto per il salvataggio
                                         //slot 1

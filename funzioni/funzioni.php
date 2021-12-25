@@ -8,7 +8,7 @@ function getBestRecords($mysqlHost,$mysqlUser,$mysqlPass,$mysqlDb,$tabGiocatori)
         return $arrayRecords;
     }
     $query = <<<SQL
-SELECT `username`,`record` FROM `{$tabGiocatori}` WHERE `record` IS NOT NULL ORDER BY `record` LIMIT 10;
+SELECT `username`,`record` FROM `{$tabGiocatori}` WHERE `record` IS NOT NULL ORDER BY `record`,`spostamenti` LIMIT 10;
 SQL;
     $result = $mysqli->query($query);
     if($result){
