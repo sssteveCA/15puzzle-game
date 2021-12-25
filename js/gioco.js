@@ -82,15 +82,6 @@ $(function(){
         'margin-top' : '30px',
         'margin-bottom' : '100px'
     });
-    /*$('.tessera').css({
-        height : tesseraDim+'px',
-        width : tesseraDim+'px',
-        border : '1px solid black'
-    });
-    area.css({
-        height : (tesseraDim*4)+'px',
-        width : (tesseraDim*4)+'px'
-    });*/
     $('#esci').on('click',function(){
         gioco = false;
         $('<div id="backMenu">').dialog({

@@ -7,8 +7,6 @@ $risposta = array();
 //$risposta['msg'] = '';
 $ajax = (isset($_POST['ajax']) && $_POST['ajax'] == '1');
 
-
-
 //se l'utente è connesso
 if(isset($_SESSION['giocatore'],$_SESSION['logged']) && $_SESSION['giocatore'] != '' && $_SESSION['logged']){
     //se il record esiste ed è un numero
@@ -35,6 +33,7 @@ if(isset($_SESSION['giocatore'],$_SESSION['logged']) && $_SESSION['giocatore'] !
                     $errno = $player->getErrno();
                     switch($errno){
                         case GIOCATOREERR_DATANOTUPDATED:
+                            break;
                         case GIOCATOREERR_QUERYERROR:
                         case GIOCATOREERR_INVALIDDATAFORMAT:
                             $risposta['msg'] = ERROR." {$errno}";
@@ -44,7 +43,7 @@ if(isset($_SESSION['giocatore'],$_SESSION['logged']) && $_SESSION['giocatore'] !
                             break;
                     }
                 }
-            }
+            }//if($errno == 0 || $errno == GIOCATOREERR_INCORRECTLOGINDATA){
             else{
                 $risposta['error'] = '1';
                 $errno = $player->getErrno();

@@ -1,0 +1,16 @@
+array (
+  'ajax' => '1',
+  'record' => '2',
+)
+array (
+  'ajax' => '1',
+  'record' => '1',
+)
+array (
+  'ajax' => '1',
+  'record' => 'NaN',
+)
+array (
+  'ajax' => '1',
+  'record' => 'NaN',
+)

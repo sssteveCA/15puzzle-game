@@ -341,7 +341,7 @@ SQL;
         $this->errno = 0;
         if(is_numeric($record)){
             $query = <<<SQL
-UPDATE `{$this->tabella}` SET `record` = '{$record}' 
+UPDATE `{$this->tabella}` SET `record` = '{$record}'
 WHERE `username` = '{$this->username}' 
 AND (`record` IS NULL OR `record` > '{$record}');
 SQL;
@@ -354,7 +354,7 @@ SQL;
                 else $this->errno = GIOCATOREERR_DATANOTUPDATED; //dati non aggiornati
             }
             else $this->errno = GIOCATOREERR_QUERYERROR; //query errata 
-        }
+        }//if(is_numeric($record) && is_numeric($spostamenti)){
         else $this->errno = GIOCATOREERR_INVALIDDATAFORMAT; //Uno o più parametri non sono nel formato corretto
         return $ok;
     }
