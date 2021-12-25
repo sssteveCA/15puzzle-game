@@ -1,1 +1,7 @@
 tabelle/
+
+giocoBak.php
+funzioni/loadBak.php
+funzioni/saveBak.php
+js/menuGiocoBak.js
+oggetti/giocatoreBak.php
