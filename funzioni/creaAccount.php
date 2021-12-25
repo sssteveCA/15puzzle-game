@@ -104,7 +104,7 @@ HTML;
     }
 
 }//else (utente non collegato)
-if($ajax)echo json_encode($risposta);
+if($ajax)echo json_encode($risposta,JSON_UNESCAPED_UNICODE);
 else{
 ?>
 <!DOCTYPE html>

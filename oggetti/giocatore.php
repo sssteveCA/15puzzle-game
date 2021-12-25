@@ -194,9 +194,9 @@ class Giocatore{
             'email' => $this->email,
             'username' => $this->username,
             'password' => $this->password,
-            'sequenza' => $this->sequenza,
-            'tempo' => $this->tempo,
-            'spostamenti' => $this->spostamenti,
+            //'sequenza' => $this->sequenza,
+            //'tempo' => $this->tempo,
+            //'spostamenti' => $this->spostamenti,
             'record' => $this->record,
             'codAut' => $this->codAut,
             'cambioPwd' => $this->cambioPwd,
@@ -205,13 +205,13 @@ class Giocatore{
     }
 
     public function __unserialize($data){
-        $this->id = $data['id'];
+        $this->id = isset($data['id']) ? $data['id'] : null;
         $this->email = $data['email'];
         $this->username = $data['username'];
         $this->password = $data['password'];
-        $this->sequenza = $data['sequenza'];
-        $this->tempo = $data['tempo'];
-        $this->spostamenti = $data['spostamenti'];
+        //$this->sequenza = $data['sequenza'];
+        //$this->tempo = $data['tempo'];
+        //$this->spostamenti = $data['spostamenti'];
         $this->record = $data['record'];
         $this->codAut = $data['codAut'];
         $this->cambioPwd = $data['cambioPwd'];

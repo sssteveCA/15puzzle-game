@@ -64,5 +64,5 @@ else{
     $risposta['msg'] = 'Il tuo profilo è stato disconnesso';
 }
 
-if($ajax)echo json_encode($risposta);
+if($ajax)echo json_encode($risposta,JSON_UNESCAPED_UNICODE);
 ?>

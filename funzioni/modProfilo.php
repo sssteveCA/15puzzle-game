@@ -35,15 +35,27 @@ if(isset($_SESSION['giocatore'],$_SESSION['logged']) && $_SESSION['giocatore'] !
                         }
                         else{
                             $risposta['error'] = '1';
-                            $risposta['msg'] = $player->getError();
+                            $errore = $player->getErrno();
+                            switch($errore){
+                                case GIOCATOREERR_DATANOTUPDATED:
+                                    $risposta['msg'] = ERROR." {$errore}";
+                                    break;
+                                default:
+                                    $risposta['msg'] = UNKNOWN_ERROR;
+                                    break;
+                            }
                         }
                     }//if($errore == 0 || $player->isLogged() === true)
                     else{
                         $risposta['error'] = '1';
-                        if($player->getErrno() == GIOCATOREERR_INCORRECTLOGINDATA){
-                            $risposta['msg'] = 'Password non corretta';
+                        switch($errore){
+                            case GIOCATOREERR_INCORRECTLOGINDATA:
+                                $risposta['msg'] = "La password attuale non è corretta";
+                                break;
+                            default:
+                                $risposta['msg'] = UNKNOWN_ERROR;
+                                break;
                         }
-                        else $risposta['msg'] = $player->getError();
                     }
                 }
                 catch(Exception $e){
@@ -78,15 +90,27 @@ if(isset($_SESSION['giocatore'],$_SESSION['logged']) && $_SESSION['giocatore'] !
                             }
                             else{
                                 $risposta['error'] = '1';
-                                $risposta['msg'] = $player->getError();
+                                $errore = $player->getErrno();
+                                switch($errore){
+                                    case GIOCATOREERR_DATANOTUPDATED:
+                                        $risposta['msg'] = ERROR." {$errore}";
+                                        break;
+                                    default:
+                                        $risposta['msg'] = UNKNOWN_ERROR;
+                                        break;
+                                }
                             }
                         }//if($errore == 0 && $player->isLogged() === true)
                         else{
                             $risposta['error'] = '1';
-                            if($player->getErrno() == GIOCATOREERR_INCORRECTLOGINDATA){
-                                $risposta['msg'] = 'Password non corretta';
-                            }
-                            else $risposta['msg'] = $player->getError();       
+                            switch($errore){
+                                case GIOCATOREERR_INCORRECTLOGINDATA:
+                                    $risposta['msg'] = "La password attuale non è corretta";
+                                    break;
+                                default:
+                                    $risposta['msg'] = UNKNOWN_ERROR;
+                                    break;
+                            }      
                         }
                     }
                     catch(Exception $e){
@@ -117,7 +141,7 @@ else{
     }
     else $risposta['msg'] = '<div><a href="../index.php">Effettua l\' accesso</a> per giocare</div>';
 }
-if($ajax)echo json_encode($risposta);
+if($ajax)echo json_encode($risposta,JSON_UNESCAPED_UNICODE);
 else{
     $html = <<<HTML
 <!DOCTYPE html>

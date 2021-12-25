@@ -130,7 +130,7 @@ HTML;
     }
 
 }//else di if(isset($_POST['email']) && $_POST['email'] != '')
-if($ajax)echo json_encode($risultato);
+if($ajax)echo json_encode($risultato,JSON_UNESCAPED_UNICODE);
 else{
     $html = <<<HTML
 <!DOCTYPE html>

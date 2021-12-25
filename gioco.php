@@ -403,6 +403,7 @@ SPOSTAMENTI: `+spostamentiBis+``;
                                 divSalva.append(input,divText);
                                 container.append(divSalva);
                             }//for(slot = 1; slot <= 5; slot++)
+                            //finestra di dialogo dei salvataggi
                             $('<div id="saves">').dialog({
                                 resizable : false,
                                 draggable : false,
@@ -423,6 +424,7 @@ SPOSTAMENTI: `+spostamentiBis+``;
                                         var inputId = $(this).attr('id');
                                         console.log("inputId"+inputId);
                                         var slot;
+                                        //Verifico quale slot è stato scelto per il salvataggio
                                         //slot 1
                                         if(inputId == 'i1')slot = 1;
                                         //slot 2

@@ -38,7 +38,7 @@ if(isset($_SESSION['giocatore'],$_SESSION['logged']) && $_SESSION['giocatore'] !
                 else{
                     $risposta['error'] = '1';
                     $risposta['msg'] = $salvataggio->getError();
-                    $risposta['query'] = $salvataggio->getQuery();
+                    //$risposta['query'] = $salvataggio->getQuery();
                 }
             }
             catch(Exception $e){
@@ -53,7 +53,8 @@ if(isset($_SESSION['giocatore'],$_SESSION['logged']) && $_SESSION['giocatore'] !
     }//if(isset($_POST['sequenza'],$_POST['tempo'],$_POST['spostamenti'])))
     else{
         $risposta['error'] = '1';
-        $risposta['msg'] = 'Errore durante il rilevamento dell\' ordine delle tessere';
+        //$risposta['msg'] = 'Errore durante il rilevamento dell\' ordine delle tessere';
+        $risposta['msg'] = UNKNOWN_ERROR;
     }
 }//if(isset($_SESSION['giocatore'],$_SESSION['logged']) && $_SESSION['giocatore'] != '' && $_SESSION['logged'])
 else{
