@@ -315,7 +315,6 @@ if(isset($_SESSION['giocatore'],$_SESSION['logged']) && $_SESSION['giocatore'] !
     });
 
     $('#salva').on('click',function(){
-        console.log("salva");
         //se il gioco non è finito è possibile salvare
         if(gioco === true){
             var ajax = {};
@@ -325,7 +324,7 @@ if(isset($_SESSION['giocatore'],$_SESSION['logged']) && $_SESSION['giocatore'] !
                 method : 'post',
                 data : ajax,
                 success : function(risposta, stato, xhr){
-                    console.log(risposta);
+                    //console.log(risposta);
                     var risp = JSON.parse(risposta);
                     if(risp.hasOwnProperty('msg')){
 
@@ -431,7 +430,7 @@ SPOSTAMENTI: `+spostamentiBis+``;
                                             method : 'post',
                                             data : dati,
                                             success : function(risposta, stato, xhr){
-                                                console.log(risposta);
+                                                //console.log(risposta);
                                                 var risp = JSON.parse(risposta);
                                                 if(risp.hasOwnProperty('msg')){
                                                     gioco = false;
