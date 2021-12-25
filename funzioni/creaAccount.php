@@ -7,6 +7,7 @@ require_once('../oggetti/giocatore.php');
 $ajax = (isset($_POST['ajax']) && $_POST['ajax'] == '1');
 $risposta = array();
 $risposta['msg'] = '';
+$risposta['done'] = '0';
 
 //se l'utente è collegato non eseguo la pagina
 if(isset($_SESSION['giocatore'],$_SESSION['logged']) && $_SESSION['giocatore'] != '' && $_SESSION['logged']){
@@ -21,7 +22,8 @@ else{
                 $dati['username'] = $_POST['username'];
                 $dati['password'] = $_POST['password'];
                 $giocatore = new Giocatore($dati);
-                if($giocatore->getErrno() == 0){
+                $errno = $giocatore->getErrno();
+                if($errno == 0){
                     $codAut = $giocatore->getCodAut();
                     $indAtt = dirname($_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'],2).'/attiva.php';
                     $codIndAtt = $indAtt.'?codAut='.$codAut;
@@ -70,10 +72,17 @@ HTML;
                         $risposta['msg'] = $giocatore->getError();
                         //if(!$ajax)header('refresh:10;url=../registrati.php');
                     }
-                }//if($giocatore->getErrno() == 0)
+                }//if($errno == 0)
                 else{
                     $risposta['error'] = '1';
-                    $risposta['msg'] = $giocatore->getError();
+                    switch($errno){
+                        case GIOCATOREERR_USERNAMEMAILEXIST:
+                            $risposta['msg'] = $giocatore->getError();
+                            break;
+                        default:
+                            $risposta['msg'] = UNKNOWN_ERROR;
+                            break;
+                    }
                     //$risposta['msg'] .= ' '.$giocatore->getQuery();
                 }
             }

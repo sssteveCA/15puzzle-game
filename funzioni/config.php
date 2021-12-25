@@ -3,6 +3,10 @@
 $attesa = 3600;
 $tabGiocatori = 'giocatori';
 
+//messaggio errore sconosciuto
+const ERROR = 'Si è verificato un errore. Codice ';
+const UNKNOWN_ERROR = 'Errore sconosciuto';
+
 if($_SERVER['SERVER_NAME'] == 'localhost'){
     $mysqlHost = 'localhost';
     $mysqlUser = 'root';

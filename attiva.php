@@ -47,15 +47,21 @@ else{
         $dati['registrato'] = '1';
         $giocatore = new Giocatore($dati);
         $codAut = $giocatore->getCodAut();
-        $error = $giocatore->getErrno();
+        $errno = $giocatore->getErrno();
         //account attivato
-        if(!isset($codAut) && $error === 0){
+        if(!isset($codAut) && $errno === 0){
             echo 'L\' account è stato attivato';
         }
         //account non attivato
         else{
-            //echo 'L\' account non è stato attivato';
-            echo $giocatore->getError();
+            switch($errno){
+                case GIOCATOREERR_ACCOUNTNOTACTIVATED:
+                    echo $giocatore->getError();
+                    break;
+                default:
+                    echo UNKNOWN_ERROR;
+                    break;
+            }
         }
     }//if(isset($_REQUEST['codAut']) && preg_match($regex,$_REQUEST['codAut']))  
     else{

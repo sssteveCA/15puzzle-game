@@ -33,6 +33,7 @@ else{
 <?php
     if(isset($_REQUEST['codReset']) && preg_match(Giocatore::$regex['cambioPwd'],$_REQUEST['codReset'])){
         $codReset = $_REQUEST['codReset'];
+        //l'indirizzo per reimpostare la password vale per $attesa secondi
         $time = time()-$attesa;
         $dati = array();
         $giocatore = new Giocatore($dati);

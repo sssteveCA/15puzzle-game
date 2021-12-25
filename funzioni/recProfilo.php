@@ -22,22 +22,24 @@ else{
         $dati['email'] = $email;
         try{
             $giocatore = new Giocatore($dati);
-            $valori = array();
-            $valori['cambioPwd'] = $giocatore->getCambioPwd();
-            $valori['dataCambioPwd'] = $giocatore->getDataCambioPwd();
-            $where = array();
-            $where['email'] = $giocatore->getEmail();
-            $mod = $giocatore->update($valori,$where);
-            if($mod){
-                /*indirizzo assoluto della pagina reset.php
-                REQUEST_SCHEME = protocollo utilizzato
-                SERVER_NAME = nome del sito da cui lo script è eseguito
-                SCRIPT_NAME = percorso dello script in esecuzione  */
-                $indReset = dirname($_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'],2).'/reset.php';
-                //URL con il codice per reimpostare la password
-                $indResetCod = $indReset.'?codReset='.$giocatore->getCambioPwd();
-                //inserisce $codReset in 'cambioPwd nel campo 'email' che ha $email
-                $headers = <<<HEADER
+            $errno = $giocatore->getErrno();
+            if($errno == 0){
+                $valori = array();
+                $valori['cambioPwd'] = $giocatore->getCambioPwd();
+                $valori['dataCambioPwd'] = $giocatore->getDataCambioPwd();
+                $where = array();
+                $where['email'] = $giocatore->getEmail();
+                $mod = $giocatore->update($valori,$where);
+                if($mod){
+                    /*indirizzo assoluto della pagina reset.php
+                    REQUEST_SCHEME = protocollo utilizzato
+                    SERVER_NAME = nome del sito da cui lo script è eseguito
+                    SCRIPT_NAME = percorso dello script in esecuzione  */
+                    $indReset = dirname($_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'],2).'/reset.php';
+                    //URL con il codice per reimpostare la password
+                    $indResetCod = $indReset.'?codReset='.$giocatore->getCambioPwd();
+                    //inserisce $codReset in 'cambioPwd nel campo 'email' che ha $email
+                    $headers = <<<HEADER
 From: Admin <noreply@localhost.lan>
 Reply-to: noreply@localhost.lan
 Content-type: text/html
@@ -83,18 +85,41 @@ HEADER;
     </body>
 </html>
 HTML;
-                $send = $giocatore->sendEmail($giocatore->getEmail(),'Recupero password',$body,$headers);
-                if($send){
-                    $risultato['done'] = '1';
-                    $risultato['msg'] = 'Una mail per il recupero della password è stata inviata alla tua casella di posta';
-                }
+                    $send = $giocatore->sendEmail($giocatore->getEmail(),'Recupero password',$body,$headers);
+                    if($send){
+                        $risultato['done'] = '1';
+                        $risultato['msg'] = 'Una mail per il recupero della password è stata inviata alla tua casella di posta';
+                    }
+                    else{
+                        $risultato['msg'] = "C'è stato un errore durante l' invio della mail";
+                    }
+                }//if($mod)
                 else{
-                    $risultato['msg'] = "C'è stato un errore durante l' invio della mail";
-                }
-            }//if($mod)
+                    $errno = $giocatore->getErrno();
+                    switch($errno){
+                        case GIOCATOREERR_DATANOTUPDATED:
+                            $risultato['msg'] = $giocatore->getError();
+                            break;
+                        default:
+                            $risultato['msg'] = UNKNOWN_ERROR;
+                            break;
+                    }
+                } 
+            }//if($errno == 0){
             else{
-                $risultato['msg'] = $giocatore->getError();
-            } 
+                switch($errno){
+                    case GIOCATOREERR_ACCOUNTNOTRECOVERED:
+                    case GIOCATOREERR_DATANOTSET:
+                        $risultato['msg'] = $giocatore->getError();
+                        break;
+                    case GIOCATOREERR_QUERYERROR:
+                        $risultato['msg'] = ERROR." {$errno}";
+                        break;
+                    default:
+                        $risultato['msg'] = UNKNOWN_ERROR;
+                        break;
+                }
+            }//else di if($errno == 0){
         }
         catch(Exception $e){
             $risultato['msg'] = $e->getMessage();
