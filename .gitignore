@@ -1,10 +1,10 @@
-tabelle/
+/tabelle/
 
 log.txt
 giocoBak.php
-funzioni/loadBak.php
-funzioni/log.txt
-funzioni/saveBak.php
-js/menuGiocoBak.js
-oggetti/giocatoreBak.php
-oggetti/log.txt
+/funzioni/loadBak.php
+/funzioni/log.txt
+/funzioni/saveBak.php
+/js/menuGiocoBak.js
+/oggetti/giocatoreBak.php
+/oggetti/log.txt
