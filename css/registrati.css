@@ -1,0 +1,29 @@
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1#titolo{
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+table#tabella{
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+table tr td{
+    text-align: center;
+}
+
+input:not(.pulsante){
+    width: 90%;
+    padding: 5px;
+}
+
+input.pulsante{
+    padding: 5px;
+}

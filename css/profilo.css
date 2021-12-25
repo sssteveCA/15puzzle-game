@@ -1,0 +1,39 @@
+
+table#tProfilo{
+    min-width: 600px;
+    border-collapse: collapse;
+}
+
+table caption{
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+input.field{
+    margin: 10px;
+    width: 90%;
+    padding: 5px;
+}
+
+input.button{
+    padding: 5px;
+}
+
+td{
+    padding: 10px;
+    text-align: center;
+}
+
+/*td.val *{
+    display: block;
+}*/
+
+td.def{
+    width: 200px;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+td.val{
+    width: 350px;
+}

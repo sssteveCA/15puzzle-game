@@ -1,0 +1,50 @@
+
+
+
+div#area{
+    position: absolute;
+    top: 200px;
+    left: 150px;
+}
+
+div#side{
+    position: absolute;
+    top: 200px;
+    left: 550px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+div#punteggi{
+    position: absolute;
+    top: 80px;
+    left: 5px;
+    width: 98%;
+    min-width: 700px;
+    border: 4px solid black;
+    display: flex;
+    justify-content: space-between;
+}
+
+div.pt{
+    font-size: 22px;
+    font-weight: bold;
+}
+
+input#salva{
+    margin-top: 80px;
+    padding: 5px;
+}
+
+input#esci{
+    margin-top: 40px;
+    padding: 5px;
+}
+
+div.tessera{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

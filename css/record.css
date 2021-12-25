@@ -1,0 +1,33 @@
+
+table{
+    border-collapse: collapse;
+    min-width: 700px;
+}
+
+table caption{
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+td{
+    padding: 10px;
+    text-align: center;
+}
+
+/*td.val *{
+    display: block;
+}*/
+td.pos{
+    width: 100px;
+    font-size: 20px;
+}
+
+td.player{
+    width: 250px;
+    font-size: 20px;
+}
+
+td.record{
+    width: 400px;
+    font-size: 20px;
+}

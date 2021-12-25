@@ -1,0 +1,24 @@
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1#titolo{
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+div#menu{
+    height: 400px;
+    width: 600px;
+}
+
+.voci{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+}

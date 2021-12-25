@@ -1,0 +1,14 @@
+
+
+div#container{
+    margin-top: 100px;
+    margin-left: 15px;
+}
+
+form#fRecupera>div{
+    margin: 10px;
+}
+
+form#fRecupera>div *{
+    margin-right: 5px;
+}
