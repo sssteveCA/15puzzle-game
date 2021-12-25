@@ -18,6 +18,7 @@ else{
         $dati['registrato'] = '1';
         try{
             $giocatore = new Giocatore($dati);
+            $errno = $giocatore->getErrno();
             $errore = $giocatore->getError();
             $login = $giocatore->isLogged();
             //accesso autorizzato
@@ -27,7 +28,16 @@ else{
                 header('location: ../menuGioco.php');            
             }
             else{
-                $errore = $giocatore->getError();
+                switch($errno){
+                    case GIOCATOREERR_ACTIVEYOURACCOUNT:
+                    case GIOCATOREERR_DATANOTSET:
+                    case GIOCATOREERR_INCORRECTLOGINDATA:
+                        $errore = $giocatore->getError();
+                        break;
+                    default:
+                        $errore = UNKNOWN_ERROR;
+                        break;
+                }
                 header('refresh:10;url=../index.php');
             }
         }

@@ -105,10 +105,12 @@ if(isset($_SESSION['giocatore'],$_SESSION['logged']) && $_SESSION['giocatore'] !
         var idT = '';
         var html = '';
         if(sequenza[i] != 'vuoto'){
+            //inserisce il numero come testo nell'elemento tessera
             idT = 'n'+sequenza[i];
             html = sequenza[i];
         }
         else{
+            //Spazio vuoto
             idT = sequenza[i];
             html = '';
         }
@@ -149,7 +151,7 @@ if(isset($_SESSION['giocatore'],$_SESSION['logged']) && $_SESSION['giocatore'] !
         border : '1px solid black'
     });
     gioco = true;
-    //aggiorna il punteggio
+    //aggiorna il punteggio e il tempo impiegato
     tId = setInterval(function(){
         if(gioco === true){
             time = timerStr(day,h,m,s);
@@ -351,6 +353,7 @@ if(isset($_SESSION['giocatore'],$_SESSION['logged']) && $_SESSION['giocatore'] !
                             var container = $('<div>');
                             container.attr('id','container');
                             for(slot = 1; slot <= 5; slot++){
+                                //creazione della dialogbox con gli slot di salvataggio
                                 var divSalva = $('<div>');
                                 divSalva.attr({
                                     id : 'slot'+slot,

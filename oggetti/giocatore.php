@@ -142,7 +142,7 @@ class Giocatore{
                      else{
                         $this->errno = GIOCATOREERR_DATANOTSET; //uno o più dati richiesti non sono stati settati
                     }
-                }
+                }//else
             }//if(in_array($dati['campo'],Utente::$campi) && isset($this->{$dati['campo']}))
             //errore, uno o più campi richiesti non sono stati impostati
             else {

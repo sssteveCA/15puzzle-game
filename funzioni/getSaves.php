@@ -20,7 +20,8 @@ if(isset($_SESSION['giocatore'],$_SESSION['logged']) && $_SESSION['giocatore'] !
                 $aSave = array();
                 $aSave['id'] = $id;
                 $save = new Salvataggio($aSave);
-                if($save->getErrno() == 0){
+                $errno = $save->getErrno();
+                if($errno == 0){
                     $slot = $save->getSlot();
                     $risposta['done'] = '1';
                     $risposta['saves'][$slot]['id'] = $save->getId();
@@ -32,7 +33,16 @@ if(isset($_SESSION['giocatore'],$_SESSION['logged']) && $_SESSION['giocatore'] !
                 }
                 else{
                     $risposta['error'] = '1';
-                    $risposta['msg'] = $save->getError();
+                    switch($errno){
+                        case SALVATAGGIOERR_INFONOTGETTED:
+                        case SALVATAGGIOERR_QUERYERROR:
+                        case SALVATAGGIOERR_IDNOTEXISTS:
+                            $risposta['msg'] = ERROR." {$errno}";
+                            break;
+                        default:
+                            $risposta['msg'] = UNKNOWN_ERROR;
+                            break;
+                    }
                 }
             }
             catch(Exception $e){
